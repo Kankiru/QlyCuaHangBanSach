@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Service;
+package duan1.QuanLyKhachHang.Servicce;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -21,7 +21,7 @@ public class DBConnect {
     private static final String PASSWORD = "123";
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "DA1_test1";
+    private static final String DATABASE_NAME = "DA1";
     private static final boolean USING_SSL = true;
     
     private static String CONNECT_STRING;

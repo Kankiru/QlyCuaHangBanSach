@@ -4,7 +4,6 @@
  */
 package duan1.QuanLyKhachHang.Servicce;
 
-import Service.DBConnect;
 import duan1.QuanLyKhachHang.Model.KhachHang;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -27,7 +26,7 @@ public class KhachHangService {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7));
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -37,8 +36,8 @@ public class KhachHangService {
         }
     }
 
-    public List<KhachHang> add(String MAKH, String TENKH, String DIACHI, String Email, String SDT, String TONGCHI, Date NGSINH) {
-        sql = "insert into khachhang (MAKH,TENKH, DIACHI, EMAIL, SDT, TongChi, NgaySinh) values (NEWID(),?,?,?,?,?,?)";
+    public List<KhachHang> add(String MAKH, String TENKH, String DIACHI, String Email, String SDT, Date NGSINH) {
+        sql = "insert into khachhang (MAKH,TENKH, DIACHI, EMAIL, SDT, NgaySinh) values (NEWID(),?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
 
@@ -46,14 +45,14 @@ public class KhachHangService {
             ps.setString(2, DIACHI);
             ps.setString(3, Email);
             ps.setString(4, SDT);
-            ps.setString(5, TONGCHI);
+
             SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
             String NgSinhStr = SDF.format(NGSINH);
-            ps.setString(6, NgSinhStr);
+            ps.setString(5, NgSinhStr);
             int add = ps.executeUpdate();
             if (add > 0) {
 
-                KhachHang kh = new KhachHang(MAKH, TENKH, DIACHI, Email, SDT, TONGCHI, NGSINH);
+                KhachHang kh = new KhachHang(MAKH, TENKH, DIACHI, Email, SDT, NGSINH);
                 ListKH.add(kh);
             }
             return ListKH;
@@ -76,10 +75,10 @@ public class KhachHangService {
                 String DIACHI = rs.getString("DIACHI");
                 String email = rs.getString("EMAIL");
                 String SDT = rs.getString("SDT");
-                String TongChi = rs.getString("TongChi");
+
                 Date NgaySinh = rs.getDate("NgaySinh");
 
-                KhachHang khachHang = new KhachHang(MAKH, TENKH, DIACHI, email, SDT, TongChi, NgaySinh);
+                KhachHang khachHang = new KhachHang(MAKH, TENKH, DIACHI, email, SDT, NgaySinh);
                 ListKH.add(khachHang);
             }
             return ListKH;
@@ -114,7 +113,148 @@ public class KhachHangService {
             int i = ps.executeUpdate();
             if (i > 0) {
                 ListKH.removeIf(kh -> kh.getMAKH().equals(MAKH));
-                
+
+            }
+            return ListKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<KhachHang> Update(KhachHang khachhang) {
+        sql = "update khachhang set tenkh =?, diachi =?,email =?,sdt =?,ngaysinh=? where makh=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, khachhang.getTENKH());
+            ps.setString(2, khachhang.getDIACHI());
+            ps.setString(3, khachhang.getEMAIL());
+            ps.setString(4, khachhang.getSDT());
+            ps.setDate(5, new Date(khachhang.getNgaySinh().getTime()));
+            ps.setObject(6, UUID.fromString(khachhang.getMAKH()));
+            int update = ps.executeUpdate();
+            if (update > 0) {
+                for (KhachHang khachHang : ListKH) {
+                    if (khachHang.getMAKH().equals(khachHang.getMAKH())) {
+                        khachHang.setTENKH(khachHang.getTENKH());
+                        khachHang.setTENKH(khachHang.getTENKH());
+                        khachHang.setDIACHI(khachHang.getDIACHI());
+                        khachHang.setEMAIL(khachHang.getEMAIL());
+                        khachHang.setSDT(khachHang.getSDT());
+                        khachHang.setNgaySinh(khachHang.getNgaySinh());
+                        break;
+                    }
+                }
+            }
+            return ListKH;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+
+    public List<KhachHang> searchMKH(String searchText) {
+        ListKH = new ArrayList<>();
+        sql = "select * from khachhang where makh like ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                ListKH.add(kh);
+            }
+            return ListKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<KhachHang> searchTKH(String searchText) {
+        ListKH = new ArrayList<>();
+        sql = "select * from khachhang where tenkh like ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                ListKH.add(kh);
+            }
+            return ListKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<KhachHang> searchDiaChi(String searchText) {
+        ListKH = new ArrayList<>();
+        sql = "select * from khachhang where diachi like ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                ListKH.add(kh);
+            }
+            return ListKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<KhachHang> searchEmail(String searchText) {
+        ListKH = new ArrayList<>();
+        sql = "select * from khachhang where email like ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                ListKH.add(kh);
+            }
+            return ListKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<KhachHang> searchSDT(String searchText) {
+        ListKH = new ArrayList<>();
+        sql = "select * from khachhang where sdt like ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                ListKH.add(kh);
+            }
+            return ListKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<KhachHang> searchNS(String searchText) {
+        ListKH = new ArrayList<>();
+        sql = "select * from khachhang where ngaysinh like ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                ListKH.add(kh);
             }
             return ListKH;
         } catch (Exception e) {

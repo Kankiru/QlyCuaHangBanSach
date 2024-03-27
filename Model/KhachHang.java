@@ -13,28 +13,28 @@ public class KhachHang {
     private String DIACHI;
     private String EMAIL;
     private String SDT;
-    private String TongChi;
+    
     private Date NgaySinh;
 
     public KhachHang() {
     }
 
-    public KhachHang(String TENKH, String DIACHI, String EMAIL, String SDT, String TongChi, Date NgaySinh) {
+    public KhachHang(String TENKH, String DIACHI, String EMAIL, String SDT, Date NgaySinh) {
         this.TENKH = TENKH;
         this.DIACHI = DIACHI;
         this.EMAIL = EMAIL;
         this.SDT = SDT;
-        this.TongChi = TongChi;
+      
         this.NgaySinh = NgaySinh;
     }
 
-   public KhachHang(String MAKH, String TENKH, String DIACHI, String Email, String SDT, String TONGCHI, Date NGSINH) {
+   public KhachHang(String MAKH, String TENKH, String DIACHI, String Email, String SDT, Date NGSINH) {
     this.MAKH = MAKH;
     this.TENKH = TENKH;
     this.DIACHI = DIACHI;
     this.EMAIL = Email;
     this.SDT = SDT;
-    this.TongChi = TONGCHI;
+   
     this.NgaySinh = NGSINH;
 }
 
@@ -80,13 +80,7 @@ public class KhachHang {
         this.SDT = SDT;
     }
 
-    public String getTongChi() {
-        return TongChi;
-    }
-
-    public void setTongChi(String TongChi) {
-        this.TongChi = TongChi;
-    }
+    
 
     public Date getNgaySinh() {
         return NgaySinh;
@@ -97,6 +91,6 @@ public class KhachHang {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{MAKH, TENKH, DIACHI, EMAIL, SDT, TongChi, NgaySinh};
+        return new Object[]{MAKH, TENKH, DIACHI, EMAIL, SDT, NgaySinh};
     }
 }
