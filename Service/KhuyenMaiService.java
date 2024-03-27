@@ -35,7 +35,7 @@ public class KhuyenMaiService {
         }
     }
 
-    public List<KhuyenMai> add(String MAKM, String tenKM, String loaiKM, Date NBD, Date NKT, String TT) {
+    public List<KhuyenMai> add(String MAKM, String tenKM, String loaiKM, Timestamp NBD, Timestamp NKT, String TT) {
         sql = "insert into khuyenmai (MAKM,tenkhuyenmai,loaikhuyenmai,ngaybatdau,ngayketthuc,trangthai) values (?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
