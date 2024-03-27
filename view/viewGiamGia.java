@@ -9,8 +9,6 @@ import duan1.GiamGia.model.KhuyenMai;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,6 +36,8 @@ public class viewGiamGia extends javax.swing.JFrame {
         for (KhuyenMai khuyenMai : listKM) {
             cboMS1.addItem(khuyenMai.getMAKM());
         }
+
+        count();
 
         sldKM.addChangeListener(new ChangeListener() {
             @Override
@@ -107,6 +107,8 @@ public class viewGiamGia extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKM = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        lblCount = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -529,15 +531,27 @@ public class viewGiamGia extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblKM);
 
+        jLabel14.setText("CHƯƠNG TRÌNH KHUYẾN MẠI HIỆN CÓ :");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCount, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(lblCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -589,7 +603,9 @@ public class viewGiamGia extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private void count() {
+        lblCount.setText(Integer.toString(KMSV.count()));
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String MAKM = txtMKM.getText();
         String TENKM = txtTENKM.getText();
@@ -616,7 +632,6 @@ public class viewGiamGia extends javax.swing.JFrame {
             java.sql.Timestamp NBD = new java.sql.Timestamp(NBDdate.getTime());
             java.sql.Timestamp NKT = new java.sql.Timestamp(NKTdate.getTime());
 
-           
             List<KhuyenMai> existMKM = KMSV.getAll();
             for (KhuyenMai khuyenMai : existMKM) {
                 if (MAKM.equals(khuyenMai.getMAKM())) {
@@ -631,14 +646,17 @@ public class viewGiamGia extends javax.swing.JFrame {
 
                     fillTable(KMSV.getAll());
                     JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    count();
                     clear();
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Thêm thất bại ");
+                    count();
 
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Bạn chưa thêm khuyến mãi mới");
+                count();
             }
 
         } catch (Exception e) {
@@ -660,10 +678,12 @@ public class viewGiamGia extends javax.swing.JFrame {
                 if (updateList != null) {
                     JOptionPane.showMessageDialog(this, "Xóa thành công");
                     fillTable(KMSV.getAll());
+                    count();
                     clear();
                     return;
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa thất bại ");
+                    count();
                     return;
                 }
             } else {
@@ -723,12 +743,13 @@ public class viewGiamGia extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                         clear();
-
+                        count();
                         return;
                     }
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Bạn không thể sửa Mã Khuyến Mại");
+                    count();
                     return;
 
                 }
@@ -784,11 +805,11 @@ public class viewGiamGia extends javax.swing.JFrame {
             if (km == null || km.isEmpty()) {
                 model.setRowCount(0);
                 JOptionPane.showMessageDialog(this, "Không tìm thấy bất kì kết quả nào từ ngày " + SNBD.toString() + " đến ngày " + SNKT.toString());
-                return;
+                count();
             } else {
                 DisplaySearchData(km);
                 JOptionPane.showMessageDialog(this, "Đã tìm thấy kết quả từ ngày " + SNBD.toString() + " đến ngày" + SNKT.toString());
-                return;
+                count();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -848,6 +869,7 @@ public class viewGiamGia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -866,6 +888,7 @@ public class viewGiamGia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JRadioButton rbtnCKH;
     private javax.swing.JRadioButton rbtnKH;
     private javax.swing.JSlider sldKM;

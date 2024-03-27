@@ -156,5 +156,21 @@ public class KhuyenMaiService {
         }
 
     }
+   public int count() {
+        int count = 0;
+        sql = "select count(*) from khuyenmai ";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return count;
+    }
 
 }
