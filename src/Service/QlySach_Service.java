@@ -87,4 +87,24 @@ public class QlySach_Service {
             return 0;
         }
         }
+    public List<QlySach> timkiem(String ten){
+        try {
+            
+            List<QlySach> ListS = new ArrayList<>();
+            sql = "SELECT MASACH,MANXB,THELOAI,MATG,TENSACH,NAMXUATBAN,SOLUONG,GIAMUA,ANH FROM SACH WHERE TENSACH LIKE ?";
+             con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, "%" + ten + "%");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                 QlySach qls = new QlySach(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9));
+                ListS.add(qls);
+            }
+            return ListS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
