@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -1002,6 +1002,7 @@ public class NhanVien_View extends javax.swing.JPanel {
                 if (service.UpdateNhanVien(ma, this.ReadForm()) > 0) {
                     JOptionPane.showMessageDialog(this, "Sửa thành công");
                     this.fillTable(service.finAll());
+                    this.fillTable2(service.fillAll2());
                 } else {
                     JOptionPane.showMessageDialog(this, "Sửa thất bại");
                 }
