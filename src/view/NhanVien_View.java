@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -176,7 +176,6 @@ public class NhanVien_View extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa phân quyền tài khoản");
             return false;
         }
-
         return true;
 
     }
@@ -209,7 +208,7 @@ public class NhanVien_View extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không được để trống Email");
             return false;
         } else {
-            String emailPattern = "^[a-zA-Z0-9._%+-]+@(gmail.com|fpt.edu.vn)$";
+            String emailPattern = "^[a-zA-Z0-9._%+-]+@(gmail.com|fpt.edu.vn|example.com)$";
             String email = txt_Email.getText().trim();
             boolean isValidEmail = Pattern.matches(emailPattern, email);
             if (!isValidEmail) {
@@ -218,9 +217,14 @@ public class NhanVien_View extends javax.swing.JPanel {
             }
         }
         // Kiểm tra dữ liệu ngày sinh
+        Date ngayHienTai = new Date();
         Date ngaySinh = DC_NgaySinh.getDate();
         if (ngaySinh == null) {
             JOptionPane.showMessageDialog(this, "Ngày sinh không đúng định dạng yyyy-MM-dd hoặc để trống");
+            return false;
+        }
+        if (ngaySinh.after(ngayHienTai)) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh không được vượt qua ngày hiện tại");
             return false;
         }
 
