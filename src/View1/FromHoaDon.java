@@ -9,9 +9,21 @@ import Model1.HoaDon;
 import Service1.CTHoaDon_Service;
 import Service1.HoaDon_Service;
 import static java.awt.Frame.ICONIFIED;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -412,11 +424,16 @@ private int index = -1;
         btCTHDF.setBackground(new java.awt.Color(153, 153, 153));
         btCTHDF.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btCTHDF.setForeground(new java.awt.Color(255, 255, 255));
-        btCTHDF.setText("IN");
+        btCTHDF.setText("XUẤT EXCEL");
         btCTHDF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btCTHDF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btCTHDFMouseClicked(evt);
+            }
+        });
+        btCTHDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCTHDFActionPerformed(evt);
             }
         });
 
@@ -478,10 +495,10 @@ private int index = -1;
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMaHd1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtTongSp, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTongTien1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtTongTien1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMaHd1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btCTHDF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -734,6 +751,26 @@ private int index = -1;
         showData2(row);
     }//GEN-LAST:event_tblBang1MouseClicked
 
+    private void btCTHDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCTHDFActionPerformed
+        // TODO add your handling code here:
+        try {
+            int choice = JOptionPane.showConfirmDialog(this, "Có chắc muốn lưu file?");
+            if (choice == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công");
+                ExcelExporter.exportToExcel(tblBang1);
+                return;
+            } else {
+                JOptionPane.showMessageDialog(this, "Bạn chưa lưu");
+            }
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi xuất Excel: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ex) {
+
+            JOptionPane.showMessageDialog(this, "Bạn đã hủy bỏ xuất Excel.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btCTHDFActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -769,6 +806,53 @@ private int index = -1;
         });
     }
 
+    public class ExcelExporter {
+
+        public static void exportToExcel(JTable table) throws IOException {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Chọn nơi lưu File");
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+
+                Workbook workbook = new XSSFWorkbook();
+                Sheet sheet = workbook.createSheet("KhachHang");
+
+                // Tạo tiêu đề
+                Row headerRow = sheet.createRow(0);
+                for (int i = 0; i < table.getColumnCount(); i++) {
+                    headerRow.createCell(i).setCellValue(table.getColumnName(i));
+                }
+
+                // Thêm dữ liệu từ bảng vào tệp Excel
+                for (int rowNum = 0; rowNum < table.getRowCount(); rowNum++) {
+                    Row row = sheet.createRow(rowNum + 1);
+                    for (int colNum = 0; colNum < table.getColumnCount(); colNum++) {
+                        Object value = table.getValueAt(rowNum, colNum);
+                        Cell cell = row.createCell(colNum);
+                        if (value instanceof String) {
+                            cell.setCellValue((String) value);
+                        } else if (value instanceof Integer) {
+                            cell.setCellValue((Integer) value);
+                        } else if (value instanceof Date) {
+                            // Xử lý dữ liệu ngày tháng
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            cell.setCellValue(dateFormat.format((Date) value));
+                        }
+                        // Các kiểu dữ liệu khác có thể được xử lý tương tự
+                    }
+                }
+
+                // Ghi dữ liệu vào tệp
+                try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                    workbook.write(outputStream);
+
+                }
+            }
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCTHDF;
     private javax.swing.JButton btTim;
