@@ -14,19 +14,21 @@ public class KhuyenMai {
 
     private String MAKM;
     private String TENKHUYENMAI;
-    private String LOAIKHUYENMAI;
     private Date NGAYBATDAU;
     private Date NGAYKETTHUC;
+    private int GIAMGIA;
     private String TRANGTHAI;
 
-    public KhuyenMai(String MAKM, String TENKHUYENMAI, String LOAIKHUYENMAI, Date NGAYBATDAU, Date NGAYKETTHUC, String TRANGTHAI) {
+    public KhuyenMai(String MAKM, String TENKHUYENMAI, Date NGAYBATDAU, Date NGAYKETTHUC, int GIAMGIA, String TRANGTHAI) {
         this.MAKM = MAKM;
         this.TENKHUYENMAI = TENKHUYENMAI;
-        this.LOAIKHUYENMAI = LOAIKHUYENMAI;
         this.NGAYBATDAU = NGAYBATDAU;
         this.NGAYKETTHUC = NGAYKETTHUC;
+        this.GIAMGIA = GIAMGIA;
         this.TRANGTHAI = TRANGTHAI;
     }
+
+   
 
     public KhuyenMai() {
     }
@@ -39,24 +41,12 @@ public class KhuyenMai {
         this.MAKM = MAKM;
     }
 
-   
-
-   
-
     public String getTENKHUYENMAI() {
         return TENKHUYENMAI;
     }
 
     public void setTENKHUYENMAI(String TENKHUYENMAI) {
         this.TENKHUYENMAI = TENKHUYENMAI;
-    }
-
-    public String getLOAIKHUYENMAI() {
-        return LOAIKHUYENMAI;
-    }
-
-    public void setLOAIKHUYENMAI(String LOAIKHUYENMAI) {
-        this.LOAIKHUYENMAI = LOAIKHUYENMAI;
     }
 
     public Date getNGAYBATDAU() {
@@ -75,6 +65,14 @@ public class KhuyenMai {
         this.NGAYKETTHUC = NGAYKETTHUC;
     }
 
+    public int getGIAMGIA() {
+        return GIAMGIA;
+    }
+
+    public void setGIAMGIA(int GIAMGIA) {
+        this.GIAMGIA = GIAMGIA;
+    }
+
     public String getTRANGTHAI() {
         return TRANGTHAI;
     }
@@ -84,13 +82,14 @@ public class KhuyenMai {
     }
 
 
+
    
 
    
     
 
     public Object[] toDataRow() {
-        return new Object[]{this.MAKM, TENKHUYENMAI, LOAIKHUYENMAI, NGAYBATDAU, NGAYKETTHUC,TRANGTHAI};
+        return new Object[]{this.MAKM, TENKHUYENMAI,  NGAYBATDAU, NGAYKETTHUC,TRANGTHAI,GIAMGIA};
     }
     
 }

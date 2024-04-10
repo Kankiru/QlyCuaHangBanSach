@@ -25,7 +25,7 @@ public class KhuyenMaiService {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6));
+                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(6), rs.getString(5));
                 ListKM.add(km);
             }
             return ListKM;
@@ -35,25 +35,25 @@ public class KhuyenMaiService {
         }
     }
 
-    public List<KhuyenMai> add(String MAKM, String tenKM, String loaiKM, Timestamp NBD, Timestamp NKT, String TT) {
-        sql = "insert into khuyenmai (MAKM,tenkhuyenmai,loaikhuyenmai,ngaybatdau,ngayketthuc,trangthai) values (?,?,?,?,?,?)";
+    public List<KhuyenMai> add(String MAKM, String tenKM, Timestamp NBD, Timestamp NKT, int GG, String TT) {
+        sql = "insert into khuyenmai (MAKM,tenkhuyenmai,ngaybatdau,ngayketthuc,giamgia,trangthai) values (?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
 
             ps.setString(1, MAKM);
             ps.setString(2, tenKM);
-            ps.setString(3, loaiKM);
 
             SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
             String NBDStr = SDF.format(NBD);
             String NKTStr = SDF.format(NKT);
-            ps.setString(4, NBDStr);
-            ps.setString(5, NKTStr);
+            ps.setString(3, NBDStr);
+            ps.setString(4, NKTStr);
+            ps.setInt(5, GG);
             ps.setString(6, TT);
             int add = ps.executeUpdate();
             if (add > 0) {
 
-                KhuyenMai km = new KhuyenMai(MAKM, tenKM, loaiKM, NBD, NKT, TT);
+                KhuyenMai km = new KhuyenMai(MAKM, tenKM, NBD, NKT, GG, TT);
                 ListKM.add(km);
             }
             return ListKM;
@@ -64,14 +64,16 @@ public class KhuyenMaiService {
     }
 
     public List<KhuyenMai> updateKhuyenMai(KhuyenMai khuyenMai) {
-        sql = "UPDATE KHUYENMAI SET TENKHUYENMAI = ?, LOAIKHUYENMAI = ?, NGAYBATDAU = ?, NGAYKETTHUC = ?, TRANGTHAI = ? WHERE MAKM = ?";
+        sql = "UPDATE KHUYENMAI SET TENKHUYENMAI = ?, NGAYBATDAU = ?, NGAYKETTHUC = ?,GIAMGIA = ?, TRANGTHAI = ? WHERE MAKM = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, khuyenMai.getTENKHUYENMAI());
-            ps.setString(2, khuyenMai.getLOAIKHUYENMAI());
-            ps.setDate(3, new Date(khuyenMai.getNGAYBATDAU().getTime()));
-            ps.setDate(4, new Date(khuyenMai.getNGAYKETTHUC().getTime()));
+
+            ps.setDate(2, new Date(khuyenMai.getNGAYBATDAU().getTime()));
+            ps.setDate(3, new Date(khuyenMai.getNGAYKETTHUC().getTime()));
+            ps.setInt(4, khuyenMai.getGIAMGIA());
             ps.setString(5, khuyenMai.getTRANGTHAI());
+
             ps.setString(6, khuyenMai.getMAKM());
 
             int update = ps.executeUpdate();
@@ -79,9 +81,10 @@ public class KhuyenMaiService {
                 for (KhuyenMai km : ListKM) {
                     if (km.getMAKM().equals(khuyenMai.getMAKM())) {
                         km.setTENKHUYENMAI(khuyenMai.getTENKHUYENMAI());
-                        km.setLOAIKHUYENMAI(khuyenMai.getLOAIKHUYENMAI());
+                        
                         km.setNGAYBATDAU(khuyenMai.getNGAYBATDAU());
                         km.setNGAYKETTHUC(khuyenMai.getNGAYKETTHUC());
+                        km.setGIAMGIA(khuyenMai.getGIAMGIA());
                         km.setTRANGTHAI(khuyenMai.getTRANGTHAI());
                         break;
                     }
@@ -144,7 +147,7 @@ public class KhuyenMaiService {
             ps.setDate(6, NKT);
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6));
+                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getString(6));
                 ListKM.add(km);
 
             }
@@ -156,7 +159,8 @@ public class KhuyenMaiService {
         }
 
     }
-   public int count() {
+
+    public int count() {
         int count = 0;
         sql = "select count(*) from khuyenmai ";
         try {
