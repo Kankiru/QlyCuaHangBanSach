@@ -152,6 +152,9 @@
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhaCungCapActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnthongKe">
               <Properties>
@@ -309,7 +312,7 @@
     <Container class="javax.swing.JPanel" name="pnlView">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="d4" green="fa" red="f7" type="rgb"/>
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
       </Properties>
 

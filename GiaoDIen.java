@@ -5,6 +5,7 @@
 package GiaoDien;
 
 import duan1.GiamGia.view.GiamGiaPanel;
+import duan1.NhaCungCap.view.NhaCungCapPanel;
 import duan1.QLKH.QlyCuaHangBanSach.View.ViewQLKHPanel;
 
 /**
@@ -66,6 +67,11 @@ public class GiaoDIen extends javax.swing.JFrame {
         btnNhaCungCap.setText("Nhà Cung Cấp");
         btnNhaCungCap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnNhaCungCap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnNhaCungCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhaCungCapActionPerformed(evt);
+            }
+        });
 
         btnthongKe.setBackground(new java.awt.Color(153, 255, 255));
         btnthongKe.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -204,7 +210,7 @@ public class GiaoDIen extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        pnlView.setBackground(new java.awt.Color(247, 250, 212));
+        pnlView.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlViewLayout = new javax.swing.GroupLayout(pnlView);
         pnlView.setLayout(pnlViewLayout);
@@ -285,6 +291,15 @@ public class GiaoDIen extends javax.swing.JFrame {
         pnlView.revalidate();
         pnlView.repaint();
     }//GEN-LAST:event_btnGiamGiaActionPerformed
+
+    private void btnNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhaCungCapActionPerformed
+        duan1.NhaCungCap.view.NhaCungCapPanel ncc = new NhaCungCapPanel();
+        ncc.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
+        pnlView.removeAll();
+        pnlView.add(ncc);
+        pnlView.revalidate();
+        pnlView.repaint();
+    }//GEN-LAST:event_btnNhaCungCapActionPerformed
 
     /**
      * @param args the command line arguments
