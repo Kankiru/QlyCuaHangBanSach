@@ -25,7 +25,7 @@ public class KhuyenMaiService {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(6), rs.getString(5));
+                KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getString(6));
                 ListKM.add(km);
             }
             return ListKM;
@@ -142,7 +142,7 @@ public class KhuyenMaiService {
             ps.setDate(1, NBD);
             ps.setDate(2, NKT);
             ps.setDate(3, NBD);
-            ps.setDate(4, NBD);
+            ps.setDate(4, NKT);
             ps.setDate(5, NKT);
             ps.setDate(6, NKT);
             rs = ps.executeQuery();
@@ -159,6 +159,7 @@ public class KhuyenMaiService {
         }
 
     }
+    
 
     public int count() {
         int count = 0;
