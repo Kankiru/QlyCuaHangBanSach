@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package duan1.QuanLyKhachHang.Servicce;
+package duan1.QLKH.QlyCuaHangBanSach.Servicce;
 
-import duan1.QuanLyKhachHang.Model.KhachHang;
+import duan1.QLKH.QlyCuaHangBanSach.Model.KhachHang;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,18 +38,19 @@ public class KhachHangService {
     }
 
     public List<KhachHang> add(String MAKH, String TENKH, String DIACHI, String Email, String SDT, Date NGSINH) {
-        sql = "insert into khachhang (MAKH,TENKH, DIACHI, EMAIL, SDT, NgaySinh) values (NEWID(),?,?,?,?,?)";
+        sql = "insert into khachhang (MAKH,TENKH, DIACHI, EMAIL, SDT, NgaySinh) values (?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
 
-            ps.setString(1, TENKH);
-            ps.setString(2, DIACHI);
-            ps.setString(3, Email);
-            ps.setString(4, SDT);
+            ps.setString(1, MAKH);
+            ps.setString(2, TENKH);
+            ps.setString(3, DIACHI);
+            ps.setString(4, Email);
+            ps.setString(5, SDT);
 
             SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
             String NgSinhStr = SDF.format(NGSINH);
-            ps.setString(5, NgSinhStr);
+            ps.setString(6, NgSinhStr);
             int add = ps.executeUpdate();
             if (add > 0) {
 
@@ -109,7 +111,7 @@ public class KhachHangService {
         sql = "delete from khachhang where makh = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setObject(1, UUID.fromString(MAKH));
+            ps.setString(1, MAKH);
             int i = ps.executeUpdate();
             if (i > 0) {
                 ListKH.removeIf(kh -> kh.getMAKH().equals(MAKH));
@@ -131,7 +133,7 @@ public class KhachHangService {
             ps.setString(3, khachhang.getEMAIL());
             ps.setString(4, khachhang.getSDT());
             ps.setDate(5, new Date(khachhang.getNgaySinh().getTime()));
-            ps.setObject(6, UUID.fromString(khachhang.getMAKH()));
+            ps.setString(6, khachhang.getMAKH());
             int update = ps.executeUpdate();
             if (update > 0) {
                 for (KhachHang khachHang : ListKH) {

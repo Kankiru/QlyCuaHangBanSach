@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duan1.QuanLyKhachHang.Servicce;
+package duan1.QLKH.QlyCuaHangBanSach.Servicce;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
