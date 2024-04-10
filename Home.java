@@ -19,6 +19,14 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+      
+        IMG_Home imgPanel = new IMG_Home("/GiaoDien/mua-ban-sach-cu-online.jpg");
+        imgPanel.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
+        pnlView.removeAll();
+        pnlView.add(imgPanel);
+        pnlView.revalidate();
+        pnlView.repaint();
+
     }
 
     /**
