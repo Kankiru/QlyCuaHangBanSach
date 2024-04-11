@@ -4,6 +4,7 @@
  */
 package service;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -154,7 +155,9 @@ public class NhanVien_Service {
                 nv.setSoDienThoai(rs.getString(5));
                 java.sql.Date ngaysinh = rs.getDate(6);
                 if (ngaysinh != null) {
-                    nv.setNgaySinh(new java.util.Date(ngaysinh.getTime()));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String ngaySinhString = dateFormat.format(new java.util.Date(ngaysinh.getTime()));
+                    nv.setNgaySinh(java.sql.Date.valueOf(ngaySinhString));
                 }
 
                 listNV.add(nv);
@@ -191,7 +194,9 @@ public class NhanVien_Service {
                 nv.setSoDienThoai(rs.getString(5));
                 java.sql.Date ngaysinh = rs.getDate(6);
                 if (ngaysinh != null) {
-                    nv.setNgaySinh(new java.util.Date(ngaysinh.getTime()));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String ngaySinhString = dateFormat.format(new java.util.Date(ngaysinh.getTime()));
+                    nv.setNgaySinh(java.sql.Date.valueOf(ngaySinhString));
                 }
 
                 listNV.add(nv);
@@ -238,6 +243,33 @@ public class NhanVien_Service {
         return null;
     }
 
+    public List<NhanVien_Model> searchIDN(String searchText) {
+        listNV = new ArrayList<>();
+        sql = "select  IDNV , TAIKHOAN , PASWORD ,EMAIL,ROLES from NHANVIEN where IDNV like ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, searchText + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                NhanVien_Model tk = new NhanVien_Model(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                listNV.add(tk);
+            }
+            return listNV;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public int Delete(String ID) {
         sql = "DELETE FROM NHANVIEN WHERE IDNV = ?";
         try {
@@ -258,7 +290,7 @@ public class NhanVien_Service {
         return 0;
     }
 
-   public int Update(String ID, NhanVien_Model tk) {
+    public int Update(String ID, NhanVien_Model tk) {
         if (isUsernameExists(tk.getTaiKhoan(), ID)) {
             JOptionPane.showMessageDialog(null, "Tên đăng nhập đã tồn tại!");
             return 0;
