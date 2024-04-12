@@ -9,6 +9,7 @@ CREATE TABLE KHACHHANG (
     SDT NVARCHAR(20),
     NgaySinh DATE
 );
+DELETE FROM HOADON WHERE MAKH = 'KH001'
 
 
 
@@ -31,7 +32,7 @@ CREATE TABLE NHACUNGCAP (
     DIACHI NVARCHAR(50),
     EMAIL NVARCHAR(50),
     SDT NVARCHAR(20),
-    NGAYNHAP DATE,
+    
     MOTA NVARCHAR(255)
 );
 
@@ -200,8 +201,8 @@ VALUES ('KH001', N'Tên khách hàng', N'Địa chỉ khách hàng', N'emailkh@e
 INSERT INTO NHANVIEN (IDNV, TEN, GIOITINH, NGAYSINH, EMAIL, SDT, TAIKHOAN, MATKHAU, CHUCVU)
 VALUES ('NV001', N'Tên nhân viên', N'Giới tính', '2000-01-01', N'emailnv@example.com', N'0999999999', 'taikhoan1', 'matkhau1', N'Nhân viên');
 -----------
-INSERT INTO NHACUNGCAP (MANCC, TENNHACUNGCAP, DIACHI, EMAIL, SDT, NGAYNHAP, MOTA)
-VALUES ('NCC001', N'Tên nhà cung cấp', N'Địa chỉ nhà cung cấp', N'emailncc@example.com', N'0999999999', '2024-04-12', N'Mô tả về nhà cung cấp');
+INSERT INTO NHACUNGCAP (MANCC, TENNHACUNGCAP, DIACHI, EMAIL, SDT, MOTA)
+VALUES ('NCC001', N'Tên nhà cung cấp', N'Địa chỉ nhà cung cấp', N'emailncc@example.com', N'0999999999', N'Mô tả về nhà cung cấp');
 ----------
 INSERT INTO THELOAI (MATL, THELOAI)
 VALUES ('TL001', N'Tên thể loại sách');
