@@ -51,7 +51,7 @@ public class LoginService {
 
     }
 
-    public boolean resetPassword(String taiKhoan, String matKhauMoi,String email) {
+    public boolean resetPassword(String taiKhoan, String matKhauMoi, String email) {
 
         CallableStatement callableStatement = null;
 
@@ -66,7 +66,7 @@ public class LoginService {
 
             // Thực thi stored procedure
             callableStatement.execute();
-           
+
             // Nếu không có lỗi, trả về true
             return true;
         } catch (SQLException e) {
@@ -87,4 +87,41 @@ public class LoginService {
             }
         }
     }
+
+    public String layTenNhanVien(String taiKhoan) {
+        String tenNhanVien = ""; // Biến này lưu tên nhân viên lấy được từ cơ sở dữ liệu
+
+        try {
+            con = DBConnect.getConnection(); // Lấy kết nối đến cơ sở dữ liệu
+            sql = "SELECT TEN FROM NHANVIEN WHERE TAIKHOAN = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, taiKhoan);
+            rs = ps.executeQuery();
+
+            // Nếu có bản ghi trả về từ cơ sở dữ liệu, lấy tên nhân viên
+            if (rs.next()) {
+                tenNhanVien = rs.getString("TEN");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và các tài nguyên
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return tenNhanVien; // Trả về tên nhân viên
+    }
+
 }

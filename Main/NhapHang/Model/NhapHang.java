@@ -12,49 +12,41 @@ import java.util.Date;
  */
 public class NhapHang {
 
-    private String maPN;
-    private String maNV;
-    private String maSach;
+    private String maPhieuNhap;
+    private String maNhanVien;
     private String maNCC;
-
+    private int donGia;
+    private int soLuong;
     private Date ngayNhap;
-    private int tongTien;
+    private int thanhTien;
 
     public NhapHang() {
     }
 
-    public NhapHang(String maPN, String maNV, String maSach, String maNCC, Date ngayNhap, int tongTien) {
-        this.maPN = maPN;
-        this.maNV = maNV;
-        this.maSach = maSach;
+    public NhapHang(String maPhieuNhap, String maNhanVien, String maNCC, int donGia, int soLuong, Date ngayNhap, int thanhTien) {
+        this.maPhieuNhap = maPhieuNhap;
+        this.maNhanVien = maNhanVien;
         this.maNCC = maNCC;
-
+        this.donGia = donGia;
+        this.soLuong = soLuong;
         this.ngayNhap = ngayNhap;
-        this.tongTien = tongTien;
+        this.thanhTien = thanhTien;
     }
 
-    public String getMaPN() {
-        return maPN;
+    public String getMaPhieuNhap() {
+        return maPhieuNhap;
     }
 
-    public void setMaPN(String maPN) {
-        this.maPN = maPN;
+    public void setMaPhieuNhap(String maPhieuNhap) {
+        this.maPhieuNhap = maPhieuNhap;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public String getMaNhanVien() {
+        return maNhanVien;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
-
-    public String getMaSach() {
-        return maSach;
-    }
-
-    public void setMaSach(String maSach) {
-        this.maSach = maSach;
+    public void setMaNhanVien(String maNhanVien) {
+        this.maNhanVien = maNhanVien;
     }
 
     public String getMaNCC() {
@@ -65,6 +57,22 @@ public class NhapHang {
         this.maNCC = maNCC;
     }
 
+    public int getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(int donGia) {
+        this.donGia = donGia;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
     public Date getNgayNhap() {
         return ngayNhap;
     }
@@ -73,15 +81,17 @@ public class NhapHang {
         this.ngayNhap = ngayNhap;
     }
 
-    public int getTongTien() {
-        return tongTien;
+    public int getThanhTien() {
+        return thanhTien;
     }
 
-    public void setTongTien(int tongTien) {
-        this.tongTien = tongTien;
+    public void setThanhTien(int thanhTien) {
+        this.thanhTien = thanhTien;
     }
+
+  
 
     public Object[] toDataRow() {
-        return new Object[]{maPN, maNV, maSach, maNCC, ngayNhap, tongTien};
+        return new Object[]{maPhieuNhap, maNhanVien,maNCC,soLuong, donGia,ngayNhap, thanhTien};
     }
 }

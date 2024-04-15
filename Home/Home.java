@@ -25,7 +25,7 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form GiaoDIen
      */
-    public Home() {
+    public Home(String tenNhanVien) {
         initComponents();
         startClock();
 
@@ -35,6 +35,9 @@ public class Home extends javax.swing.JFrame {
         pnlView.add(imgPanel);
         pnlView.revalidate();
         pnlView.repaint();
+
+       
+        lblNameNV.setText(tenNhanVien);
 
     }
 
@@ -58,7 +61,7 @@ public class Home extends javax.swing.JFrame {
         btnNhapGia = new javax.swing.JButton();
         btnGiamGia = new javax.swing.JButton();
         btnVoucher = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblNameNV = new javax.swing.JLabel();
         btnNhaCungCap1 = new javax.swing.JButton();
         lblTime = new javax.swing.JLabel();
         jpView = new javax.swing.JPanel();
@@ -163,12 +166,12 @@ public class Home extends javax.swing.JFrame {
         btnVoucher.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnVoucher.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel1.setBackground(new java.awt.Color(222, 196, 228));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Home/software-engineer.png"))); // NOI18N
-        jLabel1.setText("NHÓM 8");
-        jLabel1.setOpaque(true);
+        lblNameNV.setBackground(new java.awt.Color(222, 196, 228));
+        lblNameNV.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNameNV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNameNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Home/software-engineer.png"))); // NOI18N
+        lblNameNV.setText("NHÓM 8");
+        lblNameNV.setOpaque(true);
 
         btnNhaCungCap1.setBackground(new java.awt.Color(153, 255, 255));
         btnNhaCungCap1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -192,7 +195,7 @@ public class Home extends javax.swing.JFrame {
             .addComponent(btnVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnthongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnNhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblNameNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnNhaCungCap1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpMenuLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -203,7 +206,7 @@ public class Home extends javax.swing.JFrame {
         jpMenuLayout.setVerticalGroup(
             jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMenuLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblNameNV, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnQlySach, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +317,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuanLyKhachHangActionPerformed
 
     private void btnNhanVIenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVIenActionPerformed
-       Main.NhanVien.NhanVien.View.NhanVienGUI nv = new NhanVienGUI();
+        Main.NhanVien.NhanVien.View.NhanVienGUI nv = new NhanVienGUI();
         nv.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
         pnlView.removeAll();
         pnlView.add(nv);
@@ -398,7 +401,8 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                String tenNhanVien = null;
+                new Home(tenNhanVien).setVisible(true);
             }
         });
     }
@@ -414,10 +418,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnQuanLyKhachHang;
     private javax.swing.JButton btnVoucher;
     private javax.swing.JButton btnthongKe;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jpMenu;
     private javax.swing.JPanel jpRot;
     private javax.swing.JPanel jpView;
+    private javax.swing.JLabel lblNameNV;
     private javax.swing.JLabel lblTime;
     private javax.swing.JPanel pnlView;
     // End of variables declaration//GEN-END:variables
@@ -445,4 +449,5 @@ public class Home extends javax.swing.JFrame {
         });
         clockThread.start(); // Bắt đầu luồng
     }
+
 }

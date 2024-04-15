@@ -204,13 +204,13 @@ public class LoginGUI extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tài khoản và mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
-
+            String tenNhanVien = LoginSV.layTenNhanVien(taiKhoan);
             if (LoginSV.kiemTraDangNhap(taiKhoan, matKhau)) {
 
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 this.dispose();
-                Home home = new Home();
+                Home home = new Home(tenNhanVien);
                 home.setVisible(true);
             } else {
 

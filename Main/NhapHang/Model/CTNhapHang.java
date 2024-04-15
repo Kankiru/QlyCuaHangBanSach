@@ -1,38 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Main.NhapHang.Model;
 
-/**
- *
- * @author pc
- */
+import java.util.Date;
+
 public class CTNhapHang {
 
-    private String maPhieuNhap;
+    private String maPN;
+    private String maNV;
     private String maSach;
+    private String maNCC;
     private int soLuong;
     private int donGia;
-    private int thanhTien;
+    private Date ngayNhap;
+    private int tongTien; // Thêm cột tổng tiền vào class
 
     public CTNhapHang() {
     }
 
-    public CTNhapHang(String maPhieuNhap, String maSach, int soLuong, int donGia, int thanhTien) {
-        this.maPhieuNhap = maPhieuNhap;
+    public CTNhapHang(String maPN, String maNV, String maSach, String maNCC, int soLuong, int donGia, Date ngayNhap, int tongTien) {
+        this.maPN = maPN;
+        this.maNV = maNV;
         this.maSach = maSach;
+        this.maNCC = maNCC;
         this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = thanhTien;
+        this.ngayNhap = ngayNhap;
+        this.tongTien = tongTien; // Cập nhật giá trị tổng tiền
     }
 
-    public String getMaPhieuNhap() {
-        return maPhieuNhap;
+    public String getMaPN() {
+        return maPN;
     }
 
-    public void setMaPhieuNhap(String maPhieuNhap) {
-        this.maPhieuNhap = maPhieuNhap;
+    public void setMaPN(String maPN) {
+        this.maPN = maPN;
+    }
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public String getMaSach() {
@@ -41,6 +49,14 @@ public class CTNhapHang {
 
     public void setMaSach(String maSach) {
         this.maSach = maSach;
+    }
+
+    public String getMaNCC() {
+        return maNCC;
+    }
+
+    public void setMaNCC(String maNCC) {
+        this.maNCC = maNCC;
     }
 
     public int getSoLuong() {
@@ -59,15 +75,24 @@ public class CTNhapHang {
         this.donGia = donGia;
     }
 
-    public int getThanhTien() {
-        return thanhTien;
+    public Date getNgayNhap() {
+        return ngayNhap;
     }
 
-    public void setThanhTien(int thanhTien) {
-        this.thanhTien = thanhTien;
+    public void setNgayNhap(Date ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
+
+    public int getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(int tongTien) {
+        this.tongTien = tongTien;
     }
 
     public Object[] toDataRow() {
-        return new Object[]{maPhieuNhap, maSach, soLuong, donGia, thanhTien};
+        return new Object[]{maPN, maNV, maSach, maNCC, soLuong, donGia, ngayNhap, tongTien};
     }
+
 }

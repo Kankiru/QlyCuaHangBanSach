@@ -1,35 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Main.NhanVien.NhanVien.model;
-
 
 import java.util.Date;
 
-/**
- *
- * @author Admin
- */
 public class NhanVien_Model {
 
     private String maNhanVien;
-    private String Ten;
-    private String Email;
-    private String soDienThoai;
+    private String ten;
     private String gioiTinh;
     private Date ngaySinh;
+    private String email;
+    private String soDienThoai;
+    private String taiKhoan;
+    private String matKhau;
 
     public NhanVien_Model() {
     }
 
-    public NhanVien_Model(String maNhanVien, String Ten, String Email, String soDienThoai, String gioiTinh, Date ngaySinh) {
+    public NhanVien_Model(String maNhanVien, String ten, String gioiTinh, Date ngaySinh, String email, String soDienThoai, String taiKhoan, String matKhau) {
         this.maNhanVien = maNhanVien;
-        this.Ten = Ten;
-        this.Email = Email;
-        this.soDienThoai = soDienThoai;
+        this.ten = ten;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
+        this.email = email;
+        this.soDienThoai = soDienThoai;
+        this.taiKhoan = taiKhoan;
+        this.matKhau = matKhau;
     }
 
     public String getMaNhanVien() {
@@ -41,27 +36,11 @@ public class NhanVien_Model {
     }
 
     public String getTen() {
-        return Ten;
+        return ten;
     }
 
-    public void setTen(String Ten) {
-        this.Ten = Ten;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
-
-    public String getSoDienThoai() {
-        return soDienThoai;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public String getGioiTinh() {
@@ -80,10 +59,40 @@ public class NhanVien_Model {
         this.ngaySinh = ngaySinh;
     }
 
-    public Object[] getDataRow() {
-        return new Object[]{this.maNhanVien, this.Ten, this.Email, this.soDienThoai, this.gioiTinh, this.ngaySinh};
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
 
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
+    public String getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public Object[] getDataRow() {
+        return new Object[]{this.maNhanVien, this.ten, this.email, this.soDienThoai, this.gioiTinh, this.ngaySinh, taiKhoan, matKhau};
+
+    }
 }

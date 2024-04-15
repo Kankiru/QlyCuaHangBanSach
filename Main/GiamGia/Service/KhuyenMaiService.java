@@ -185,4 +185,30 @@ public class KhuyenMaiService {
         return count;
     }
 
+    public boolean apDungMaKhuyenMaiChoSach(String maSach, String maKhuyenMai) {
+        // Kiểm tra xem mã sách và mã khuyến mãi có hợp lệ không
+        if (maSach == null || maKhuyenMai == null || maSach.isEmpty() || maKhuyenMai.isEmpty()) {
+            return false; // Trả về false nếu thông tin không hợp lệ
+        }
+
+        // Xây dựng câu truy vấn để cập nhật mã khuyến mãi cho sách trong bảng trung gian CTKHUYENMAI
+        sql = "UPDATE CTKHUYENMAI SET MAKM = ? WHERE MASACH = ?";
+
+        try {
+            // Tạo câu lệnh Prepared Statement
+            ps = con.prepareStatement(sql);
+            // Đặt các tham số cho câu lệnh
+            ps.setString(1, maKhuyenMai);
+            ps.setString(2, maSach);
+            // Thực thi câu lệnh cập nhật
+            int result = ps.executeUpdate();
+            // Đóng Prepared Statement
+            ps.close();
+            // Trả về kết quả true nếu cập nhật thành công
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có lỗi xảy ra
+        }
+    }
 }
