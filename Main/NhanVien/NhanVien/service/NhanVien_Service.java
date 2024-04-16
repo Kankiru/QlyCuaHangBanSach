@@ -53,7 +53,7 @@ public class NhanVien_Service {
             e.printStackTrace();
             return null;
         } finally {
-         
+
         }
     }
 
@@ -76,7 +76,7 @@ public class NhanVien_Service {
             ex.printStackTrace();
             return 0;
         } finally {
-           
+
         }
     }
 
@@ -91,7 +91,7 @@ public class NhanVien_Service {
             e.printStackTrace();
             return 0;
         } finally {
-           
+
         }
     }
 
@@ -111,11 +111,10 @@ public class NhanVien_Service {
             e.printStackTrace();
             return 0;
         } finally {
-          
+
         }
     }
 
-   
     public List<NhanVien_Model> timKiemNhanVien(String truongTimKiem, String tuKhoa) {
         listNV = new ArrayList<>();
 
@@ -145,6 +144,36 @@ public class NhanVien_Service {
             e.printStackTrace();
         }
         return listNV; // Trả về danh sách kết quả tìm kiếm
+    }
+
+    public List<String> getAllMaNhanVien() {
+        List<String> listMaNV = new ArrayList<>();
+        sql = "SELECT IDNV FROM NHANVIEN";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listMaNV.add(rs.getString("IDNV"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listMaNV;
     }
 
 }

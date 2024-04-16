@@ -9,25 +9,29 @@ public class HoaDon {
     private String maSach;
     private int soLuong;
     private Timestamp ngayLap;
-    private int tongTien;
+ 
 
     private int thanhTien;
 
     // Constructors
+    public HoaDon(String maHD, String maKH, String maNV, String maSach, int soLuong) {
+    }
+
     public HoaDon() {
     }
 
-    public HoaDon(String maHoaDon, String maKhachHang, String maNhanVien, String maSach, int soLuong, Timestamp ngayLap, int tongTien, int thanhTien) {
+    public HoaDon(String maHoaDon, String maKhachHang, String maNhanVien, String maSach, int soLuong, Timestamp ngayLap) {
         this.maHoaDon = maHoaDon;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
         this.maSach = maSach;
         this.soLuong = soLuong;
         this.ngayLap = ngayLap;
-        this.tongTien = tongTien;
-
-        this.thanhTien = thanhTien;
+     
+      
     }
+
+
 
     // Getters and Setters
     public String getMaHoaDon() {
@@ -78,32 +82,19 @@ public class HoaDon {
         this.ngayLap = ngayLap;
     }
 
-    public int getTongTien() {
-        return tongTien;
-    }
 
-    public void setTongTien(int tongTien) {
-        this.tongTien = tongTien;
-    }
-
-
-    public int getThanhTien() {
-        return thanhTien;
-    }
-
-    public void setThanhTien(int thanhTien) {
-        this.thanhTien = thanhTien;
-    }
+    
+    
   public Object[] toDataRow() {
     return new Object[] { 
         maHoaDon, 
         maKhachHang, 
         maNhanVien, 
         maSach, 
-        soLuong, 
+        soLuong,
+     
         ngayLap, 
-        tongTien, 
-        thanhTien 
+   
     };
 }
 

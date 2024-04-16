@@ -13,8 +13,10 @@ import Main.NhapHang.View.NhapHangGUI;
 import Main.QLKH.QlyCuaHangBanSach.View.ViewQLKHPanel;
 import Main.Sach.View.SachGUI;
 import Main.ThongKe.ThongKeGUI;
+import Main.Voucher.View.VoucherGUI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
 
 /**
  *
@@ -35,10 +37,13 @@ public class Home extends javax.swing.JFrame {
         pnlView.add(imgPanel);
         pnlView.revalidate();
         pnlView.repaint();
-
-       
+        WindowManager.push(this);
         lblNameNV.setText(tenNhanVien);
 
+    }
+
+    public String getCurrentTime() {
+        return lblTime.getText();
     }
 
     /**
@@ -64,7 +69,6 @@ public class Home extends javax.swing.JFrame {
         lblNameNV = new javax.swing.JLabel();
         btnNhaCungCap1 = new javax.swing.JButton();
         lblTime = new javax.swing.JLabel();
-        jpView = new javax.swing.JPanel();
         pnlView = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,6 +169,11 @@ public class Home extends javax.swing.JFrame {
         btnVoucher.setText("VOUCHER");
         btnVoucher.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnVoucher.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVoucher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoucherActionPerformed(evt);
+            }
+        });
 
         lblNameNV.setBackground(new java.awt.Color(222, 196, 228));
         lblNameNV.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -243,19 +252,6 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jpMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jpView.setBackground(new java.awt.Color(255, 204, 204));
-
-        javax.swing.GroupLayout jpViewLayout = new javax.swing.GroupLayout(jpView);
-        jpView.setLayout(jpViewLayout);
-        jpViewLayout.setHorizontalGroup(
-            jpViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpViewLayout.setVerticalGroup(
-            jpViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         pnlView.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlViewLayout = new javax.swing.GroupLayout(pnlView);
@@ -278,9 +274,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jpRot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +282,6 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpRot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -370,6 +363,15 @@ public class Home extends javax.swing.JFrame {
         pnlView.repaint();
     }//GEN-LAST:event_btnthongKeActionPerformed
 
+    private void btnVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoucherActionPerformed
+        Main.Voucher.View.VoucherGUI v = new VoucherGUI();
+        v.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
+        pnlView.removeAll();
+        pnlView.add(v);
+        pnlView.revalidate();
+        pnlView.repaint();
+    }//GEN-LAST:event_btnVoucherActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -420,7 +422,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnthongKe;
     private javax.swing.JPanel jpMenu;
     private javax.swing.JPanel jpRot;
-    private javax.swing.JPanel jpView;
     private javax.swing.JLabel lblNameNV;
     private javax.swing.JLabel lblTime;
     private javax.swing.JPanel pnlView;

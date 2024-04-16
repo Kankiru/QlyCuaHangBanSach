@@ -107,7 +107,7 @@ public class KhachHangService {
     }
 
     public List<KhachHang> Delete(String MAKH) {
-       
+
         try {
             // Xóa các bản ghi từ bảng CTVOUCHER có trường MAHD tham chiếu từ HOADON
             sql = "DELETE FROM CTVOUCHER WHERE MAHD IN (SELECT MAHD FROM HOADON WHERE MAKH = ?)";
@@ -284,6 +284,32 @@ public class KhachHangService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<String> getMaKHList() {
+        List<String> maKHList = new ArrayList<>();
+        sql = "SELECT MAKH FROM KHACHHANG";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                maKHList.add(rs.getString("MAKH"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return maKHList;
     }
 
 }

@@ -140,9 +140,9 @@ public class SachService {
         sql = "SELECT GIAMGIA FROM KHUYENMAI WHERE MAKM = ?";
         int giamGia = 0;
         try {
-             ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setString(1, maKhuyenMai);
-             rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 giamGia = rs.getInt("GIAMGIA");
             }
@@ -166,16 +166,69 @@ public class SachService {
         // Cập nhật đơn giá của sách trong bảng SACH
         sql = "UPDATE SACH SET GIAMUA = GIAMUA - (GIAMUA * ? / 100) WHERE MASACH = ?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, giamGia);
             ps.setString(2, maSach);
             int result = ps.executeUpdate();
             ps.close();
-            return result > 0;
+
+            // Nếu cập nhật giảm giá thành công, thì cập nhật lịch sử giá
+            if (result > 0) {
+                // Lấy ngày hiện tại
+                Timestamp ngayCapNhat = new Timestamp(System.currentTimeMillis());
+
+                // Thêm thông tin lịch sử giá vào bảng LichSuGia
+                sql = "INSERT INTO LichSuGia (MASACH, NGAYCAPNHAT, GIABAN) VALUES (?, ?, ?)";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, maSach);
+                ps.setTimestamp(2, ngayCapNhat);
+                ps.setInt(3, giamGia); // Giả sử giá bán sau giảm giá là giảm giá
+                int resultLSG = ps.executeUpdate();
+                ps.close();
+
+                // Trả về kết quả cập nhật lịch sử giá
+                return resultLSG > 0;
+            } else {
+                return false;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public int tinhTongSoLuongSach() {
+        int tongSoLuong = 0;
+        for (Sach sach : ListSach) {
+            tongSoLuong += sach.getSoLuong();
+        }
+        return tongSoLuong;
+    }
+
+    public List<String> getMaSachList() {
+        List<String> maSachList = new ArrayList<>();
+        sql = "SELECT MASACH FROM SACH";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                maSachList.add(rs.getString("MASACH"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return maSachList;
     }
 
 }
