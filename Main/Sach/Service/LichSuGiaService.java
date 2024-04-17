@@ -42,7 +42,7 @@ public class LichSuGiaService {
 
     public List<LichSuGia> getLichSuGiaByMaSach(String maSach) {
         List<LichSuGia> lichSuGiaList = new ArrayList<>();
-        sql = "SELECT * FROM LichSuGia WHERE MaSach = ?";
+        String sql = "SELECT * FROM LichSuGia WHERE MaSach = ?";
         try (Connection conn = DBConnect.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, maSach);
             try (ResultSet rs = ps.executeQuery()) {
@@ -51,7 +51,12 @@ public class LichSuGiaService {
                     lichSuGia.setMaSach(rs.getString("MaSach"));
                     Timestamp ngayCapNhat = rs.getTimestamp("NgayCapNhat");
                     lichSuGia.setNgayCapNhat(ngayCapNhat);
-                    lichSuGia.setGiaBan(rs.getInt("GiaBan"));
+                    int giamGia = rs.getInt("GiaBan"); // Giả sử đây là giảm giá, chú ý thay đổi nếu tên cột không đúng
+                    // Lấy giá mua từ bảng SACH
+                    int giaMua = layGiaMuaTuMaSach(maSach); // Phương thức này cần phải được định nghĩa
+                    // Tính toán giá bán sau giảm giá
+                    int giaBan = giaMua - (giaMua * giamGia / 100);
+                    lichSuGia.setGiaBan(giaBan);
                     lichSuGiaList.add(lichSuGia);
                 }
             }
@@ -59,6 +64,23 @@ public class LichSuGiaService {
             ex.printStackTrace();
         }
         return lichSuGiaList;
+    }
+
+// Phương thức để lấy giá mua từ bảng SACH
+    private int layGiaMuaTuMaSach(String maSach) {
+        int giaMua = 0;
+        String sql = "SELECT GIAMUA FROM SACH WHERE MaSach = ?";
+        try (Connection conn = DBConnect.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, maSach);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    giaMua = rs.getInt("GIAMUA");
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return giaMua;
     }
 
 }

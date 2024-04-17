@@ -30,7 +30,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(rs.getString("MaHD"));
-                hoaDon.setMaKhachHang(rs.getString("MaKH"));
+                hoaDon.setMaKhachHang(rs.getString("ten"));
                 hoaDon.setMaNhanVien(rs.getString("IDNV"));
                 hoaDon.setMaSach(rs.getString("MaSach"));
                 hoaDon.setSoLuong(rs.getInt("SoLuong"));
@@ -189,7 +189,7 @@ public class HoaDonService {
             Timestamp ngayLap = new Timestamp(System.currentTimeMillis());
 
             // Thêm hóa đơn vào cơ sở dữ liệu
-            sql = "INSERT INTO hoadon (MAHD, MaKH, IDNV, MaSach, SoLuong, NgayLap) VALUES (NEWID(), ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO hoadon (MAHD, tenKH, IDNV, MaSach, SoLuong, NgayLap) VALUES (NEWID(), ?, ?, ?, ?, ?)";
 
             ps = con.prepareStatement(sql);
             ps.setString(1, maKH);
@@ -216,7 +216,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(rs.getString("MaHD"));
-                hoaDon.setMaKhachHang(rs.getString("MaKH"));
+                hoaDon.setMaKhachHang(rs.getString("tenKH"));
                 hoaDon.setMaNhanVien(rs.getString("IDNV"));
                 hoaDon.setMaSach(rs.getString("MaSach"));
                 hoaDon.setSoLuong(rs.getInt("SoLuong"));
@@ -255,7 +255,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(rs.getString("MaHD"));
-                hoaDon.setMaKhachHang(rs.getString("MaKH"));
+                hoaDon.setMaKhachHang(rs.getString("tenKH"));
                 hoaDon.setMaNhanVien(rs.getString("IDNV"));
                 hoaDon.setMaSach(rs.getString("MaSach"));
                 hoaDon.setSoLuong(rs.getInt("SoLuong"));
@@ -295,7 +295,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(rs.getString("MaHD"));
-                hoaDon.setMaKhachHang(rs.getString("MaKH"));
+                hoaDon.setMaKhachHang(rs.getString("tenKH"));
                 hoaDon.setMaNhanVien(rs.getString("IDNV"));
                 hoaDon.setMaSach(rs.getString("MaSach"));
                 hoaDon.setSoLuong(rs.getInt("SoLuong"));
@@ -335,7 +335,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(rs.getString("MaHD"));
-                hoaDon.setMaKhachHang(rs.getString("MaKH"));
+                hoaDon.setMaKhachHang(rs.getString("tenKH"));
                 hoaDon.setMaNhanVien(rs.getString("IDNV"));
                 hoaDon.setMaSach(rs.getString("MaSach"));
                 hoaDon.setSoLuong(rs.getInt("SoLuong"));

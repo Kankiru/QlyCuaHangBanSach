@@ -4,27 +4,27 @@
  */
 package Main.Sach.Service;
 
-import Main.Sach.Model.Sach;
+import Main.Sach.Model.SachModel;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SachService {
 
-    List<Sach> ListSach;
+    List<SachModel> ListSach;
     Connection con = DBConnect.getConnection();
     PreparedStatement ps = null;
     ResultSet rs = null;
     String sql = null;
 
-    public List<Sach> getAllSach() {
+    public List<SachModel> getAllSach() {
         ListSach = new ArrayList<>();
         sql = "SELECT * FROM SACH";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Sach sach = new Sach();
+                SachModel sach = new SachModel();
                 sach.setMaSach(rs.getString("MASACH"));
                 sach.setNhaXuatBan(rs.getString("MANXB"));
                 sach.setTheLoai(rs.getString("THELOAI"));
@@ -59,7 +59,7 @@ public class SachService {
         }
     }
 
-    public boolean updateSach(Sach sach) {
+    public boolean updateSach(SachModel sach) {
         sql = "UPDATE SACH SET MANXB = ?, THELOAI = ?, MATG = ?, TENSACH = ?, NAMXUATBAN = ?, SOLUONG = ?, GIAMUA = ?, ANH = ? WHERE MASACH = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class SachService {
         }
     }
 
-    public List<Sach> timKiemSach(String truongTimKiem, String tuKhoa) {
+    public List<SachModel> timKiemSach(String truongTimKiem, String tuKhoa) {
         ListSach = new ArrayList<>();
         sql = "SELECT * FROM SACH WHERE " + truongTimKiem + " LIKE ?";
         try {
@@ -89,7 +89,7 @@ public class SachService {
             ps.setString(1, "%" + tuKhoa + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                Sach sach = new Sach();
+                SachModel sach = new SachModel();
                 sach.setMaSach(rs.getString("MASACH"));
                 sach.setNhaXuatBan(rs.getString("MANXB"));
                 sach.setTheLoai(rs.getString("THELOAI"));
@@ -108,7 +108,7 @@ public class SachService {
         return ListSach;
     }
 
-    public List<Sach> timKiemSachDonGia(int giaDau, int giaCuoi) {
+    public List<SachModel> timKiemSachDonGia(int giaDau, int giaCuoi) {
         ListSach = new ArrayList<>();
         sql = "SELECT * FROM SACH WHERE GIAMUA BETWEEN ? AND ?";
         try {
@@ -117,7 +117,7 @@ public class SachService {
             ps.setInt(2, giaCuoi);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Sach sach = new Sach();
+                SachModel sach = new SachModel();
                 sach.setMaSach(rs.getString("MASACH"));
                 sach.setNhaXuatBan(rs.getString("MANXB"));
                 sach.setTheLoai(rs.getString("THELOAI"));
@@ -136,13 +136,13 @@ public class SachService {
         return ListSach;
     }
 
-    private int layGiamGiaTuMaKhuyenMai(String maKhuyenMai) {
-        sql = "SELECT GIAMGIA FROM KHUYENMAI WHERE MAKM = ?";
+    public int layGiamGiaTuMaKhuyenMai(String maKhuyenMai) {
         int giamGia = 0;
         try {
-            ps = con.prepareStatement(sql);
+            String sql = "SELECT GIAMGIA FROM KHUYENMAI WHERE MAKM = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, maKhuyenMai);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 giamGia = rs.getInt("GIAMGIA");
             }
@@ -199,7 +199,7 @@ public class SachService {
 
     public int tinhTongSoLuongSach() {
         int tongSoLuong = 0;
-        for (Sach sach : ListSach) {
+        for (SachModel sach : ListSach) {
             tongSoLuong += sach.getSoLuong();
         }
         return tongSoLuong;
@@ -229,6 +229,24 @@ public class SachService {
             }
         }
         return maSachList;
+    }
+
+    public List<String> getMaKhuyenMai() {
+        List<String> maKhuyenMaiList = new ArrayList<>();
+        try {
+            String sql = "SELECT MaKM FROM KHUYENMAI";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String maKhuyenMai = rs.getString("MaKM");
+                maKhuyenMaiList.add(maKhuyenMai);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maKhuyenMaiList;
     }
 
 }

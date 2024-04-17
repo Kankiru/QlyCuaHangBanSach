@@ -6,17 +6,19 @@ package Home;
 
 import Main.GiamGia.view.GiamGiaPanel;
 import Main.HoaDon.View.HoaDonGUI;
+import Main.Login_Home.View.LoginGUI;
 import Main.NhaCungCap.view.NhaCungCapPanel;
 import Main.NhanVien.NhanVien.View.NhanVienGUI;
 
-import Main.NhapHang.View.NhapHangGUI;
 import Main.QLKH.QlyCuaHangBanSach.View.ViewQLKHPanel;
-import Main.Sach.View.SachGUI;
+import Main.Sach.View.Sach;
+
 import Main.ThongKe.ThongKeGUI;
 import Main.Voucher.View.VoucherGUI;
+import java.awt.Window;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -63,11 +65,10 @@ public class Home extends javax.swing.JFrame {
         btnNhanVIen = new javax.swing.JButton();
         btnQuanLyKhachHang = new javax.swing.JButton();
         btnHoaDon = new javax.swing.JButton();
-        btnNhapGia = new javax.swing.JButton();
         btnGiamGia = new javax.swing.JButton();
         btnVoucher = new javax.swing.JButton();
         lblNameNV = new javax.swing.JLabel();
-        btnNhaCungCap1 = new javax.swing.JButton();
+        btnDangXuat = new javax.swing.JButton();
         lblTime = new javax.swing.JLabel();
         pnlView = new javax.swing.JPanel();
 
@@ -142,17 +143,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btnNhapGia.setBackground(new java.awt.Color(153, 255, 255));
-        btnNhapGia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnNhapGia.setText("NHẬP HÀNG");
-        btnNhapGia.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNhapGia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnNhapGia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapGiaActionPerformed(evt);
-            }
-        });
-
         btnGiamGia.setBackground(new java.awt.Color(153, 255, 255));
         btnGiamGia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnGiamGia.setText("KHUYẾN MÃI");
@@ -182,11 +172,16 @@ public class Home extends javax.swing.JFrame {
         lblNameNV.setText("NHÓM 8");
         lblNameNV.setOpaque(true);
 
-        btnNhaCungCap1.setBackground(new java.awt.Color(153, 255, 255));
-        btnNhaCungCap1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnNhaCungCap1.setText("Thoát");
-        btnNhaCungCap1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNhaCungCap1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDangXuat.setBackground(new java.awt.Color(153, 255, 255));
+        btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnDangXuat.setText("ĐĂNG XUẤT");
+        btnDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDangXuat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
 
         lblTime.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTime.setForeground(new java.awt.Color(204, 0, 51));
@@ -200,12 +195,11 @@ public class Home extends javax.swing.JFrame {
             .addComponent(btnNhanVIen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnQuanLyKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
             .addComponent(btnHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnNhapGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnthongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnNhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblNameNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnNhaCungCap1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpMenuLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,8 +219,6 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNhapGia, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,7 +227,7 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNhaCungCap, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNhaCungCap1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -292,7 +284,7 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQlySachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQlySachActionPerformed
-        Main.Sach.View.SachGUI sach = new SachGUI();
+        Main.Sach.View.Sach sach = new Sach();
         sach.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
         pnlView.removeAll();
         pnlView.add(sach);
@@ -345,15 +337,6 @@ public class Home extends javax.swing.JFrame {
         pnlView.repaint();
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
-    private void btnNhapGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapGiaActionPerformed
-        Main.NhapHang.View.NhapHangGUI nh = new NhapHangGUI();
-        nh.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
-        pnlView.removeAll();
-        pnlView.add(nh);
-        pnlView.revalidate();
-        pnlView.repaint();
-    }//GEN-LAST:event_btnNhapGiaActionPerformed
-
     private void btnthongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthongKeActionPerformed
         Main.ThongKe.ThongKeGUI tk = new ThongKeGUI();
         tk.setBounds(0, 0, pnlView.getWidth(), pnlView.getHeight());
@@ -371,6 +354,15 @@ public class Home extends javax.swing.JFrame {
         pnlView.revalidate();
         pnlView.repaint();
     }//GEN-LAST:event_btnVoucherActionPerformed
+
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        Main.Login_Home.View.LoginGUI v = new LoginGUI();
+        dispose();
+        v.setVisible(true); // Hiển thị cửa sổ đăng nhập
+
+        // Đóng cửa sổ hiện tại của ứng dụng
+
+    }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,12 +402,11 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnGiamGia;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnNhaCungCap;
-    private javax.swing.JButton btnNhaCungCap1;
     private javax.swing.JButton btnNhanVIen;
-    private javax.swing.JButton btnNhapGia;
     private javax.swing.JButton btnQlySach;
     private javax.swing.JButton btnQuanLyKhachHang;
     private javax.swing.JButton btnVoucher;

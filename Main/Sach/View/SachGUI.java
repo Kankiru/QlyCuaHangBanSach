@@ -8,7 +8,7 @@ import Home.Home;
 import Home.WindowManager;
 import Main.GiamGia.Service.KhuyenMaiService;
 import Main.GiamGia.model.KhuyenMai;
-import Main.Sach.Model.Sach;
+import Main.Sach.Model.SachModel;
 import Main.Sach.Service.SachService;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -584,7 +584,9 @@ public class SachGUI extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -607,7 +609,7 @@ public class SachGUI extends javax.swing.JPanel {
         int namXuatBan = Integer.parseInt(txtNamXuatBan.getText());
 
         // Tạo một đối tượng sách mới
-        Sach sach = new Sach(maSach, nhaXuatBan, theLoai, tacGia, tenSach, namXuatBan, soLuong, WIDTH, maSach);
+        SachModel sach = new SachModel(maSach, nhaXuatBan, theLoai, tacGia, tenSach, namXuatBan, soLuong, WIDTH, maSach);
 
         // Cập nhật sách trong cơ sở dữ liệu
         boolean updated = SSV.updateSach(sach); // Giả sử có phương thức updateSach trong SachService
@@ -770,7 +772,7 @@ public class SachGUI extends javax.swing.JPanel {
         }
 
         // Thực hiện tìm kiếm và hiển thị kết quả
-        List<Sach> ketQua = SSV.timKiemSach(truongTimKiem, tuKhoa);
+        List<SachModel> ketQua = SSV.timKiemSach(truongTimKiem, tuKhoa);
         hienThiKetQuaTimKiem(ketQua);
 
 
@@ -790,7 +792,7 @@ public class SachGUI extends javax.swing.JPanel {
         int giaCuoi = Integer.parseInt(txtTKDG_b.getText());
 
         // Gọi phương thức tìm kiếm theo khoảng giá từ service của bạn
-        List<Sach> ketQua = SSV.timKiemSachDonGia(giaDau, giaCuoi);
+        List<SachModel> ketQua = SSV.timKiemSachDonGia(giaDau, giaCuoi);
 
         // Hiển thị kết quả tìm kiếm trên giao diện người dùng
         hienThiKetQuaTimKiemDonGia(ketQua);
@@ -891,10 +893,10 @@ public class SachGUI extends javax.swing.JPanel {
     private javax.swing.JTextField txtTheLoai;
     // End of variables declaration//GEN-END:variables
 
-    private void fillTableSach(List<Sach> allSach) {
+    private void fillTableSach(List<SachModel> allSach) {
         model = (DefaultTableModel) tblSach.getModel();
         model.setRowCount(0);
-        for (Sach sach : allSach) {
+        for (SachModel sach : allSach) {
             model.addRow(sach.toDataRow());
         }
     }
@@ -930,7 +932,7 @@ public class SachGUI extends javax.swing.JPanel {
         }
     }
 
-    private void hienThiKetQuaTimKiem(List<Sach> ketQua) {
+    private void hienThiKetQuaTimKiem(List<SachModel> ketQua) {
         model = (DefaultTableModel) tblSach.getModel();
         model.setRowCount(0); // Xóa các dòng hiện tại trong bảng
 
@@ -939,14 +941,14 @@ public class SachGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
             // Duyệt qua danh sách kết quả tìm kiếm và thêm từng dòng vào bảng
-            for (Sach sach : ketQua) {
+            for (SachModel sach : ketQua) {
                 model.addRow(sach.toDataRow());
                 JOptionPane.showMessageDialog(this, "Đã tìm thấy");
             }
         }
     }
 
-    private void hienThiKetQuaTimKiemDonGia(List<Sach> ketQua) {
+    private void hienThiKetQuaTimKiemDonGia(List<SachModel> ketQua) {
         model = (DefaultTableModel) tblSach.getModel();
         model.setRowCount(0); // Xóa các dòng hiện tại trong bảng
 
@@ -954,7 +956,7 @@ public class SachGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không tìm thấy sách trong khoảng giá này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
             // Duyệt qua danh sách kết quả tìm kiếm và thêm từng dòng vào bảng
-            for (Sach sach : ketQua) {
+            for (SachModel sach : ketQua) {
                 model.addRow(sach.toDataRow());
                 JOptionPane.showMessageDialog(this, "Đã tìm thấy");
             }

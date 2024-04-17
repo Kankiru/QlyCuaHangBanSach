@@ -83,12 +83,11 @@
                   <Component id="btnNhanVIen" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnQuanLyKhachHang" alignment="0" pref="271" max="32767" attributes="0"/>
                   <Component id="btnHoaDon" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnNhapGia" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnVoucher" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnthongKe" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnNhaCungCap" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblNameNV" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnNhaCungCap1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnDangXuat" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="lblTime" min="-2" pref="221" max="-2" attributes="0"/>
@@ -110,8 +109,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnHoaDon" min="-2" pref="54" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnNhapGia" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGiamGia" min="-2" pref="54" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnVoucher" min="-2" pref="54" max="-2" attributes="0"/>
@@ -120,7 +117,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnNhaCungCap" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnNhaCungCap1" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnDangXuat" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblTime" min="-2" pref="27" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -224,22 +221,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHoaDonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnNhapGia">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="16" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="NH&#x1eac;P H&#xc0;NG"/>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhapGiaActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="btnGiamGia">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -288,7 +269,7 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnNhaCungCap1">
+            <Component class="javax.swing.JButton" name="btnDangXuat">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -296,10 +277,13 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tho&#xe1;t"/>
+                <Property name="text" type="java.lang.String" value="&#x110;&#x102;NG XU&#x1ea4;T"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDangXuatActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTime">
               <Properties>

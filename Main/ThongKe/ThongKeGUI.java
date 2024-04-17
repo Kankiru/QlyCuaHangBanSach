@@ -13,12 +13,15 @@ import java.util.Date;
  */
 public class ThongKeGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ThongKeGUI
-     */
+    private ThongKeService TKSV = new ThongKeService();
+
     public ThongKeGUI() {
         initComponents();
         startClock();
+        int soLuongSachHienCo = TKSV.laySoLuongSachHienCo();
+        lblSLSHC1.setText(Integer.toString(soLuongSachHienCo));
+        int tongGiaMuaSach = TKSV.tinhTongGiaMuaSach();
+        lblTSLSDB.setText(Integer.toString(tongGiaMuaSach));
     }
 
     /**
@@ -32,13 +35,9 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        lblSLSHC = new javax.swing.JLabel();
         lblSLSHC1 = new javax.swing.JLabel();
-        dcrSLSHC = new com.toedter.calendar.JDateChooser();
         jPanel11 = new javax.swing.JPanel();
         lblTSLSDB = new javax.swing.JLabel();
-        lblSLSDBTN = new javax.swing.JLabel();
-        dcrSLSDB = new com.toedter.calendar.JDateChooser();
         jPanel12 = new javax.swing.JPanel();
         lblTongTK = new javax.swing.JLabel();
         lblTongTKTN = new javax.swing.JLabel();
@@ -56,17 +55,11 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(249, 255, 254));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "SỐ LƯỢNG SÁCH HIỆN CÓ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 18), new java.awt.Color(255, 0, 51))); // NOI18N
 
-        lblSLSHC.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
-        lblSLSHC.setForeground(new java.awt.Color(0, 102, 255));
-        lblSLSHC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSLSHC.setText("45");
-        lblSLSHC.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "THEO NGÀY\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
-
         lblSLSHC1.setBackground(new java.awt.Color(255, 255, 255));
         lblSLSHC1.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
         lblSLSHC1.setForeground(new java.awt.Color(0, 102, 255));
         lblSLSHC1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSLSHC1.setText("45");
+        lblSLSHC1.setText("null");
         lblSLSHC1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "TỔNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -76,42 +69,25 @@ public class ThongKeGUI extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(81, 81, 81)
                 .addComponent(lblSLSHC1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(238, 238, 238)
-                .addComponent(lblSLSHC, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(dcrSLSHC, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSLSHC, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSLSHC1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 23, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dcrSLSHC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addComponent(lblSLSHC1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 26, Short.MAX_VALUE))
         );
 
         jPanel11.setBackground(new java.awt.Color(244, 249, 249));
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "SỐ LƯỢNG SÁCH ĐÃ BÁN\n", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 18), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "TỔNG TIỀN SÁCH HIỆN CÓ\n", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 18), new java.awt.Color(255, 0, 51))); // NOI18N
 
         lblTSLSDB.setBackground(new java.awt.Color(255, 255, 255));
         lblTSLSDB.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
         lblTSLSDB.setForeground(new java.awt.Color(0, 102, 255));
         lblTSLSDB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTSLSDB.setText("45");
+        lblTSLSDB.setText("null");
         lblTSLSDB.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "TỔNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
-
-        lblSLSDBTN.setBackground(new java.awt.Color(255, 255, 255));
-        lblSLSDBTN.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
-        lblSLSDBTN.setForeground(new java.awt.Color(0, 102, 255));
-        lblSLSDBTN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSLSDBTN.setText("45");
-        lblSLSDBTN.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "THEO NGÀY\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -120,24 +96,13 @@ public class ThongKeGUI extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(lblTSLSDB, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(239, 239, 239)
-                .addComponent(lblSLSDBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(dcrSLSDB, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTSLSDB, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSLSDBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(dcrSLSDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addComponent(lblTSLSDB, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -148,14 +113,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
         lblTongTK.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
         lblTongTK.setForeground(new java.awt.Color(0, 102, 255));
         lblTongTK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongTK.setText("45");
+        lblTongTK.setText("0");
         lblTongTK.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "TỔNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
 
         lblTongTKTN.setBackground(new java.awt.Color(255, 255, 255));
         lblTongTKTN.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
         lblTongTKTN.setForeground(new java.awt.Color(0, 102, 255));
         lblTongTKTN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTongTKTN.setText("45");
+        lblTongTKTN.setText("0");
         lblTongTKTN.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "THEO NGÀY\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -193,14 +158,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
         lblTSLDH.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
         lblTSLDH.setForeground(new java.awt.Color(0, 102, 255));
         lblTSLDH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTSLDH.setText("45");
+        lblTSLDH.setText("0");
         lblTSLDH.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "TỔNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
 
         lblSLDHTN.setBackground(new java.awt.Color(255, 255, 255));
         lblSLDHTN.setFont(new java.awt.Font("SimSun", 1, 48)); // NOI18N
         lblSLDHTN.setForeground(new java.awt.Color(0, 102, 255));
         lblSLDHTN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSLDHTN.setText("45");
+        lblSLDHTN.setText("0");
         lblSLDHTN.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "THEO NGÀY\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Text", 0, 24))); // NOI18N
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -298,14 +263,12 @@ public class ThongKeGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser dcrSLSDB;
-    private com.toedter.calendar.JDateChooser dcrSLSHC;
     private com.toedter.calendar.JDateChooser dcrTKDH;
     private com.toedter.calendar.JDateChooser dcrTSLDH;
     private javax.swing.JLabel jLabel2;
@@ -316,8 +279,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblSLDHTN;
-    private javax.swing.JLabel lblSLSDBTN;
-    private javax.swing.JLabel lblSLSHC;
     private javax.swing.JLabel lblSLSHC1;
     private javax.swing.JLabel lblTSLDH;
     private javax.swing.JLabel lblTSLSDB;

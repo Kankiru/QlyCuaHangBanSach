@@ -10,28 +10,26 @@ import java.util.Date;
  *
  * @author pc
  */
-public class NhapHang {
+public class NhapSach {
 
     private String maPhieuNhap;
     private String maNhanVien;
     private String maNCC;
-    private int donGia;
-    private int soLuong;
+   
     private Date ngayNhap;
-    private int thanhTien;
+   
 
-    public NhapHang() {
+    public NhapSach() {
     }
 
-    public NhapHang(String maPhieuNhap, String maNhanVien, String maNCC, int donGia, int soLuong, Date ngayNhap, int thanhTien) {
+    public NhapSach(String maPhieuNhap, String maNhanVien, String maNCC, Date ngayNhap) {
         this.maPhieuNhap = maPhieuNhap;
         this.maNhanVien = maNhanVien;
         this.maNCC = maNCC;
-        this.donGia = donGia;
-        this.soLuong = soLuong;
         this.ngayNhap = ngayNhap;
-        this.thanhTien = thanhTien;
     }
+
+  
 
     public String getMaPhieuNhap() {
         return maPhieuNhap;
@@ -57,22 +55,6 @@ public class NhapHang {
         this.maNCC = maNCC;
     }
 
-    public int getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(int donGia) {
-        this.donGia = donGia;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
     public Date getNgayNhap() {
         return ngayNhap;
     }
@@ -81,17 +63,9 @@ public class NhapHang {
         this.ngayNhap = ngayNhap;
     }
 
-    public int getThanhTien() {
-        return thanhTien;
-    }
-
-    public void setThanhTien(int thanhTien) {
-        this.thanhTien = thanhTien;
-    }
-
   
 
     public Object[] toDataRow() {
-        return new Object[]{maPhieuNhap, maNhanVien,maNCC,soLuong, donGia,ngayNhap, thanhTien};
+        return new Object[]{maPhieuNhap, maNhanVien,maNCC,ngayNhap};
     }
 }

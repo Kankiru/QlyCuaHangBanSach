@@ -21,6 +21,22 @@ public class NhaCCService {
     String sql = null;
     List<NhaCungCap> ListNCC;
 
+    public List<String> getAllMaNCC() {
+        List<String> maNCCList = new ArrayList<>();
+        sql = "SELECT MANCC FROM NhaCungCap";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String maNCC = rs.getString("MANCC");
+                maNCCList.add(maNCC);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maNCCList;
+    }
+
     public int count() {
         int count = 0;
         sql = "select count(*) from nhacungcap ";

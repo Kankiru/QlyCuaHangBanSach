@@ -26,7 +26,7 @@ public class KhachHangService {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -36,24 +36,23 @@ public class KhachHangService {
         }
     }
 
-    public List<KhachHang> add(String MAKH, String TENKH, String DIACHI, String Email, String SDT, Date NGSINH) {
-        sql = "insert into khachhang (MAKH,TENKH, DIACHI, EMAIL, SDT, NgaySinh) values (?,?,?,?,?,?)";
+    public List<KhachHang> add( String TENKH, String DIACHI, String Email, String SDT, Date NGSINH) {
+        sql = "insert into khachhang (TENKH, DIACHI, EMAIL, SDT, NgaySinh) values (?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
 
-            ps.setString(1, MAKH);
-            ps.setString(2, TENKH);
-            ps.setString(3, DIACHI);
-            ps.setString(4, Email);
-            ps.setString(5, SDT);
+            ps.setString(1, TENKH);
+            ps.setString(2, DIACHI);
+            ps.setString(3, Email);
+            ps.setString(4, SDT);
 
             SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
             String NgSinhStr = SDF.format(NGSINH);
-            ps.setString(6, NgSinhStr);
+            ps.setString(5, NgSinhStr);
             int add = ps.executeUpdate();
             if (add > 0) {
 
-                KhachHang kh = new KhachHang(MAKH, TENKH, DIACHI, Email, SDT, NGSINH);
+                KhachHang kh = new KhachHang(TENKH, DIACHI, Email, SDT, NGSINH);
                 ListKH.add(kh);
             }
             return ListKH;
@@ -71,7 +70,7 @@ public class KhachHangService {
             ps.setString(1, EMAIL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String MAKH = rs.getString("MAKH");
+
                 String TENKH = rs.getString("TENKH");
                 String DIACHI = rs.getString("DIACHI");
                 String email = rs.getString("EMAIL");
@@ -79,7 +78,7 @@ public class KhachHangService {
 
                 Date NgaySinh = rs.getDate("NgaySinh");
 
-                KhachHang khachHang = new KhachHang(MAKH, TENKH, DIACHI, email, SDT, NgaySinh);
+                KhachHang khachHang = new KhachHang(TENKH, DIACHI, email, SDT, NgaySinh);
                 ListKH.add(khachHang);
             }
             return ListKH;
@@ -110,32 +109,32 @@ public class KhachHangService {
 
         try {
             // Xóa các bản ghi từ bảng CTVOUCHER có trường MAHD tham chiếu từ HOADON
-            sql = "DELETE FROM CTVOUCHER WHERE MAHD IN (SELECT MAHD FROM HOADON WHERE MAKH = ?)";
+            sql = "DELETE FROM CTVOUCHER WHERE MAHD IN (SELECT MAHD FROM HOADON WHERE tenKH = ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, MAKH);
             ps.executeUpdate();
 
             // Xóa các bản ghi từ bảng HOADONCT có trường MAHD tham chiếu từ HOADON
-            sql = "DELETE FROM HOADONCT WHERE MAHD IN (SELECT MAHD FROM HOADON WHERE MAKH = ?)";
+            sql = "DELETE FROM HOADONCT WHERE MAHD IN (SELECT MAHD FROM HOADON WHERE tenKH = ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, MAKH);
             ps.executeUpdate();
 
             // Xóa các hóa đơn từ bảng HOADON có trường MAKH tương ứng
-            sql = "DELETE FROM HOADON WHERE MAKH = ?";
+            sql = "DELETE FROM HOADON WHERE tenkh = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, MAKH);
             ps.executeUpdate();
 
             // Xóa khách hàng từ bảng KHACHHANG
-            sql = "DELETE FROM KHACHHANG WHERE MAKH = ?";
+            sql = "DELETE FROM KHACHHANG WHERE tenKH = ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, MAKH);
             int i = ps.executeUpdate();
 
             // Nếu xóa thành công, cập nhật ListKH
             if (i > 0) {
-                ListKH.removeIf(kh -> kh.getMAKH().equals(MAKH));
+                ListKH.removeIf(kh -> kh.getTENKH().equals(MAKH));
             }
 
             return ListKH;
@@ -146,53 +145,31 @@ public class KhachHangService {
     }
 
     public List<KhachHang> Update(KhachHang khachhang) {
-        sql = "update khachhang set tenkh =?, diachi =?,email =?,sdt =?,ngaysinh=? where makh=?";
+        sql = "UPDATE khachhang SET diachi = ?, email = ?, sdt = ?, ngaysinh = ? WHERE tenkh = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, khachhang.getTENKH());
-            ps.setString(2, khachhang.getDIACHI());
-            ps.setString(3, khachhang.getEMAIL());
-            ps.setString(4, khachhang.getSDT());
-            ps.setDate(5, new Date(khachhang.getNgaySinh().getTime()));
-            ps.setString(6, khachhang.getMAKH());
+
+            ps.setString(1, khachhang.getDIACHI());
+            ps.setString(2, khachhang.getEMAIL());
+            ps.setString(3, khachhang.getSDT());
+            ps.setDate(4, new Date(khachhang.getNgaySinh().getTime()));
+            ps.setString(5, khachhang.getTENKH());
             int update = ps.executeUpdate();
             if (update > 0) {
-                for (KhachHang khachHang : ListKH) {
-                    if (khachHang.getMAKH().equals(khachHang.getMAKH())) {
-                        khachHang.setTENKH(khachHang.getTENKH());
-                        khachHang.setTENKH(khachHang.getTENKH());
-                        khachHang.setDIACHI(khachHang.getDIACHI());
-                        khachHang.setEMAIL(khachHang.getEMAIL());
-                        khachHang.setSDT(khachHang.getSDT());
-                        khachHang.setNgaySinh(khachHang.getNgaySinh());
+                for (KhachHang kh : ListKH) {
+                    if (kh.getTENKH().equals(khachhang.getTENKH())) {
+                        kh.setDIACHI(khachhang.getDIACHI());
+                        kh.setEMAIL(khachhang.getEMAIL());
+                        kh.setSDT(khachhang.getSDT());
+                        kh.setNgaySinh(khachhang.getNgaySinh());
                         break;
                     }
                 }
             }
             return ListKH;
-
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
-
-        }
-    }
-
-    public List<KhachHang> searchMKH(String searchText) {
-        ListKH = new ArrayList<>();
-        sql = "select * from khachhang where makh like ?";
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, searchText + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
-                ListKH.add(kh);
-            }
-            return ListKH;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return null; // Trả về null nếu có lỗi xảy ra
         }
     }
 
@@ -204,7 +181,7 @@ public class KhachHangService {
             ps.setString(1, searchText + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -222,7 +199,7 @@ public class KhachHangService {
             ps.setString(1, searchText + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -240,7 +217,7 @@ public class KhachHangService {
             ps.setString(1, searchText + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -258,7 +235,7 @@ public class KhachHangService {
             ps.setString(1, searchText + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                KhachHang kh = new KhachHang( rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -276,7 +253,7 @@ public class KhachHangService {
             ps.setString(1, searchText + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                KhachHang kh = new KhachHang(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6));
+                KhachHang kh = new KhachHang( rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
                 ListKH.add(kh);
             }
             return ListKH;
@@ -288,12 +265,12 @@ public class KhachHangService {
 
     public List<String> getMaKHList() {
         List<String> maKHList = new ArrayList<>();
-        sql = "SELECT MAKH FROM KHACHHANG";
+        sql = "SELECT tenKH FROM KHACHHANG";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                maKHList.add(rs.getString("MAKH"));
+                maKHList.add(rs.getString("tenKH"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

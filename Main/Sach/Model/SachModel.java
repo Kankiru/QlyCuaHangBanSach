@@ -8,7 +8,7 @@ package Main.Sach.Model;
  *
  * @author pc
  */
-public class Sach {
+public class SachModel {
 
     private String MaSach;
     private String NhaXuatBan;
@@ -20,10 +20,10 @@ public class Sach {
     private int GiaMua;
     private String Anh;
 
-    public Sach() {
+    public SachModel() {
     }
 
-    public Sach(String MaSach, String NhaXuatBan, String TheLoai, String TacGia, String TenSach, int NamXuatBan, int SoLuong, int GiaMua, String Anh) {
+    public SachModel(String MaSach, String NhaXuatBan, String TheLoai, String TacGia, String TenSach, int NamXuatBan, int SoLuong, int GiaMua, String Anh) {
         this.MaSach = MaSach;
         this.NhaXuatBan = NhaXuatBan;
         this.TheLoai = TheLoai;
@@ -109,22 +109,17 @@ public class Sach {
 
     public Object[] toDataRow() {
         return new Object[]{this.MaSach,
+          
             this.NhaXuatBan,
             this.TheLoai,
             this.TacGia,
-            this.TenSach,
+              this.TenSach,
             this.NamXuatBan,
             this.SoLuong,
             this.GiaMua,
             this.Anh};
     }
 
-    public Object getNgayCapNhat() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object getGiaBan() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 
 }
